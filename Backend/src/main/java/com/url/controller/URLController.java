@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class URLController {
 
     private final URLService urlService;
@@ -16,18 +17,13 @@ public class URLController {
         this.urlService = urlService;
     }
 
-    @GetMapping("/home")
-    public String home(){
-        return "Welcome to Home!";
-    }
-
     @PostMapping("/shorten")
     public ResponseEntity<String> shortenUrl(@RequestParam String longUrl){
         try{
-            return new ResponseEntity<>(urlService.shorten(longUrl), HttpStatus.OK);
+            return new ResponseEntity<>(urlService.shorten(longUrl),HttpStatus.OK);
         }
         catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
