@@ -6,10 +6,12 @@ document.getElementById('shortenButton').addEventListener('click', async () => {
   const statusMessage = document.getElementById('statusMessage');
   const shortUrlSection = document.getElementById('shortUrlSection');
   const shortUrlInput = document.getElementById('shortUrlInput');
+  const copiedMessage = document.getElementById('copiedMessage');
   
   // Reset previous messages
   statusMessage.textContent = '';
   shortUrlSection.classList.add('hidden');
+  copiedMessage.classList.add('hidden');
 
   if (!longUrl) {
     statusMessage.textContent = "Please enter a valid URL.";
@@ -37,12 +39,16 @@ document.getElementById('shortenButton').addEventListener('click', async () => {
 // Copy Shortened URL Functionality
 document.getElementById('copyButton').addEventListener('click', () => {
   const shortUrlInput = document.getElementById('shortUrlInput');
+  const copiedMessage = document.getElementById('copiedMessage');
+
   shortUrlInput.select();
   shortUrlInput.setSelectionRange(0, 99999); // For mobile devices
   navigator.clipboard.writeText(shortUrlInput.value).then(() => {
-    alert("Shortened URL copied to clipboard!");
+    copiedMessage.classList.remove('hidden');
   }).catch(err => {
-    alert("Failed to copy URL.");
     console.error(err);
+    copiedMessage.textContent = "Failed to copy URL.";
+    copiedMessage.classList.remove('hidden');
+    copiedMessage.style.color = "red";
   });
 });

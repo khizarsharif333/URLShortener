@@ -8,7 +8,7 @@
 </head>
 <body>
   <div class="container">
-    <h1 class="macondo-regular">URL Shortener</h1>
+    <h1 class="montserrat-heading">URL Shortener</h1>
 
     <!-- Input Section for Long URL -->
     <div class="input-section">
@@ -16,9 +16,9 @@
         type="text" 
         id="longUrlInput" 
         placeholder="Enter your long URL" 
-        class="input-field"
+        class="input-field roboto-body"
       >
-      <button id="shortenButton" class="btn">Shorten</button>
+      <button id="shortenButton" class="btn roboto-body">Shorten</button>
     </div>
 
     <!-- Output Section for Shortened URL -->
@@ -26,14 +26,17 @@
       <input 
         type="text" 
         id="shortUrlInput" 
-        class="input-field" 
+        class="input-field roboto-body" 
         readonly
       >
-      <button id="copyButton" class="btn">Copy</button>
+      <button id="copyButton" class="btn roboto-body">Copy</button>
     </div>
 
+    <!-- Copied Message -->
+    <p id="copiedMessage" class="hidden roboto-body">Copied to clipboard!</p>
+
     <!-- Error or Status Message -->
-    <p id="statusMessage"></p>
+    <p class="roboto-body" id="statusMessage"></p>
   </div>
 
   <script src="script.js"></script>
