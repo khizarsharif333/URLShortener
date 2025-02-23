@@ -21,6 +21,7 @@ public class URLService {
     public String shorten(String longUrl) throws Exception{
 
         try {
+
             URLEntity savedUrl = urlRepository.save(new URLEntity(longUrl));
             return coder.encode(savedUrl.getId());
         } catch (Exception e) {
@@ -29,13 +30,12 @@ public class URLService {
 
     }
 
-    public String getLongUrl(String shortUrl){
-
+    public String getLongUrl(String shortUrl) throws Exception{
         long id = coder.decode(shortUrl);
 
         Optional<URLEntity> urlEn = urlRepository.findById(id);
 
-        if(urlEn.isEmpty() || urlEn.get().getExpiryAt().isBefore(LocalDateTime.now())) return "http://localhost:8080/home";
+        if(urlEn.isEmpty() || urlEn.get().getExpiryAt().isBefore(LocalDateTime.now())) throw new Exception("The Short Url expired!");
 
         return urlEn.get().getLongUrl();
     }

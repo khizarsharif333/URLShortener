@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "${front-end-url}")
 public class URLController {
 
     private final URLService urlService;
@@ -29,7 +29,12 @@ public class URLController {
 
     @GetMapping("/{shortUrl}")
     public RedirectView redirect(@PathVariable String shortUrl) {
-        String longUrl = urlService.getLongUrl(shortUrl);
+        String longUrl = null;
+        try {
+            longUrl = urlService.getLongUrl(shortUrl);
+        } catch (Exception e) {
+            longUrl = "https://www.google.com";
+        }
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl(longUrl);
         return redirectView;
