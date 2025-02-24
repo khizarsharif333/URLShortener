@@ -1,3 +1,3 @@
 # URL Shortener
 
-URL Shortener built using Springboot and Javascript as frontend and MySQL as database.
+URL Shortener built using Springboot and React as frontend and Postgresql as database.
