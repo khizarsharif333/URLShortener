@@ -28,6 +28,7 @@ function App() {
       );
 
       if (response.ok) {
+        setStatusMessage("");
         const shortUrl = await response.text();
         setShortUrl(`${backendBaseUrl}/${shortUrl}`);
       } else {
