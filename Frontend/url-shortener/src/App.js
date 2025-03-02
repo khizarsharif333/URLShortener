@@ -1,24 +1,25 @@
-import { useState } from "react";
-import "./index.css";
-const backendBaseUrl = process.env.REACT_APP_BACKEND_URL;
-
+import { useEffect, useState } from "react";
 
 function App() {
+  const [backendBaseUrl, setBackendBaseUrl] = useState("");
   const [longUrl, setLongUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [statusMessage, setStatusMessage] = useState("");
   const [copiedMessage, setCopiedMessage] = useState("");
 
+  useEffect(() => {
+    setBackendBaseUrl(process.env.REACT_APP_BACKEND_URL);
+  }, []);
+
   const handleShortenUrl = async () => {
-    setStatusMessage("");
+    setStatusMessage("Please wait a moment...");
     setCopiedMessage("");
     setShortUrl("");
 
-    if (!longUrl) {
+    if (!longUrl.trim()) {
       setStatusMessage("Please enter a valid URL.");
       return;
     }
-    console.log(`Here: ${backendBaseUrl}`);
 
     try {
       const response = await fetch(
@@ -38,6 +39,7 @@ function App() {
     }
   };
 
+
   const handleCopy = () => {
     navigator.clipboard
       .writeText(shortUrl)
@@ -52,7 +54,6 @@ function App() {
     <div className="container">
       <h1 className="montserrat-heading">URL Shortener</h1>
 
-      {/* Input Section */}
       <div className="input-section">
         <input
           type="text"
@@ -66,7 +67,6 @@ function App() {
         </button>
       </div>
 
-      {/* Output Section */}
       {shortUrl && (
         <div className="output-section">
           <input
@@ -81,7 +81,6 @@ function App() {
         </div>
       )}
 
-      {/* Messages */}
       {statusMessage && <p className="roboto-body statusMessage">{statusMessage}</p>}
       {copiedMessage && <p className="roboto-body copiedMessage">{copiedMessage}</p>}
     </div>
